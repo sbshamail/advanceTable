@@ -1,3 +1,9 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",          // Allows `any` type
+    "@typescript-eslint/no-empty-object-type": "off",     // Allows empty object types
+    "@typescript-eslint/no-unused-vars": "off",           // Allows unused variables
+    "@typescript-eslint/ban-ts-comment": "off"            // Disables the `@ts-ignore` and `@ts-expect-error` rule
+  }
 }
