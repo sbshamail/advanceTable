@@ -15,14 +15,13 @@ const FromToDateFilter: FC<FromToDateFilterTypes> = ({
   toDate,
   setToDate = () => {},
 }) => {
-  console.log(toDate);
   return (
-    <div className="flex  item-center">
+    <div className="flex  item-center select-none">
       <div>
         <Iconify
           icon={"uis:calender"}
           fontSize={"1.2em"}
-          className="text-center textPrimary"
+          className="iconPrimary"
         />
       </div>
       <InputDatePicker selectedDate={fromDate} setSelectedDate={setFromDate} />

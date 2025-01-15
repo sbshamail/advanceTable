@@ -28,6 +28,10 @@ export interface ColumnType {
   render?: ({ row, index, data, cell }: RenderType) => void;
   className?: React.ComponentProps<"div">["className"];
 }
+export interface ColumnFilterType {
+  id: string;
+  value: string;
+}
 export interface NewDropDownMenu {
   icon: string;
   contents: (props: Record<string, any>) => ActionMenuList[];

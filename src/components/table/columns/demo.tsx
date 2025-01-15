@@ -122,8 +122,8 @@ export const demoData = [
 ];
 
 export const demoColumns = [
-  { title: "ID", accessor: "id" },
-  { title: "Name", accessor: "name" },
-  { title: "Age", accessor: "age" },
-  { title: "Email", accessor: "email" },
+  { title: "ID", accessor: "id", filterId: "id" },
+  { title: "Name", accessor: "name", filterId: "name" },
+  { title: "Age", accessor: "age", filterId: "age" },
+  { title: "Email", accessor: "email", filterId: "email" },
 ];

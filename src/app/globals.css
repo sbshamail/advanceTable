@@ -32,10 +32,52 @@
   --ring: 20.5, 90.2%, 48.2%;
   --effect: 20.5, 90.2%, 48.2%, 0.1;
 }
+
+
+/* // html,
+// body,
+// #__next {
+//   height: 100%;
+//   margin: 0;
+//   padding: 0;
+// } */
+/* Apply scrollbar styles */
+/* * {
+  scrollbar-width: thin;
+  scrollbar-color: hsla(var(--ring), 0.1) hsl(var(--effect));
+} */
+
+::-webkit-scrollbar {
+  width: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: hsla(var(--ring), 0.1) hsl(var(--effect));
+}
+
+::-webkit-scrollbar-track {
+  background: hsla(var(--ring), 0.1);
+  border-radius: var(--radius);
+}
+
+::-webkit-scrollbar-track:hover,
+::-webkit-scrollbar-track:active {
+  background: hsla(var(--ring), 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsla(var(--ring), 0.7);
+  border-radius: var(--radius);
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background-color: hsl(var(--primary));
+}
 @layer base {
   body {
-    @apply relative m-0 p-0 prose prose-headings:text-foreground prose-headings:m-0 prose-headings:p-0 ; 
+    @apply relative m-0 p-0 prose prose-headings:text-foreground prose-headings:m-0 prose-headings:p-0;
     @apply h-full w-full bg-background text-foreground;
+
+    /* @apply bg-gradient-to-r from-background via-effect-sm via-50% to-background; */
   }
   .bgPrimary {
     @apply bg-primary text-primary-foreground hover:bg-primary/90 duration-150;
@@ -70,10 +112,54 @@
     transform: translate(-50%, -50%);
   }
   .iconPrimary {
-    @apply !text-primary hover:!text-primary/80 Transition;
+    @apply text-primary  duration-150 border-foreground;
   }
 
   .select-open {
     @apply absolute w-full max-h-64 overflow-y-auto z-50 rounded-lg;
   }
+}
+
+/* // React Day Picker */
+.day:hover {
+  background-color: hsl(var(--accent)) !important;
+}
+
+/* styles.css */
+.header-transition {
+  transition:
+    top 0.3s ease,
+    transform 0.3s ease;
+}
+
+.header-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transform: translateY(0);
+}
+
+.header-hidden {
+  position: fixed;
+  top: -100px; /* Adjust based on your header height */
+  width: 100%;
+  transform: translateY(0);
+}
+body {
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* Apply a different font to code or monospace text */
+code,
+pre {
+  font-family: var(--font-geist-mono), monospace;
+}
+/* for input number change to textfield style */
+.input-textfield::-webkit-outer-spin-button,
+.input-textfield::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-textfield {
+  -moz-appearance: textfield;
 }

@@ -3,8 +3,23 @@ import { renderCell } from "../depends/renderCell";
 import { toggleRowSelection } from "../depends/utility";
 import Checkbox from "@/components/textField/Checkbox";
 import { ColumnType } from "@/components/table/tableInterface";
+import { twMerge } from "tailwind-merge";
 
 type ClassNameType = React.ComponentProps<"div">["className"];
+
+export interface TableClassesType {
+  tableWrapperClass?: ClassNameType;
+  tableClass?: ClassNameType;
+  tHeadClass?: ClassNameType;
+  tableInsideClass?: ClassNameType;
+  trHeadClass?: ClassNameType;
+  thHeadClass?: ClassNameType;
+  tBodyClass?: ClassNameType;
+  trBodyClass?: ClassNameType;
+  striped?: boolean;
+  stripedClass?: ClassNameType;
+  tdBodyClass?: ClassNameType;
+}
 
 export interface TableMainBodyTypes {
   data: Record<string, any>[];
@@ -12,13 +27,7 @@ export interface TableMainBodyTypes {
   selectedRows?: Record<string, any>[];
   setSelectedRows?: (rows: Record<string, any>[]) => void;
   rowId?: "id" | "_id" | string;
-  tableClass?: ClassNameType;
-  tHeadClass?: ClassNameType;
-  trHeadClass?: ClassNameType;
-  thHeadClass?: ClassNameType;
-  tBodyClass?: ClassNameType;
-  trBodyClass?: ClassNameType;
-  tdBodyClass?: ClassNameType;
+  tableClasses?: TableClassesType;
 }
 const TableMainBody: FC<TableMainBodyTypes> = ({
   data,
@@ -26,14 +35,21 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   rowId = "id",
   selectedRows,
   setSelectedRows = () => {},
-  tableClass,
-  tHeadClass,
-  trHeadClass,
-  thHeadClass,
-  tBodyClass,
-  trBodyClass,
-  tdBodyClass,
+  tableClasses,
 }) => {
+  const {
+    tableWrapperClass,
+    tableClass,
+    trHeadClass,
+    tHeadClass,
+    thHeadClass,
+    tableInsideClass,
+    tBodyClass,
+    trBodyClass,
+    tdBodyClass,
+    striped,
+    stripedClass,
+  } = tableClasses || {};
   const [selectAll, setSelectAll] = useState(false);
   const toggle = useCallback(() => {
     if (selectAll) {
@@ -45,20 +61,25 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   }, [selectAll, setSelectedRows, data]);
 
   const TableHead = () => (
-    <thead className={`text-[13px] ${tHeadClass} `}>
-      <tr className={` z-10 sticky top-0 ${trHeadClass} `}>
+    <thead className={twMerge(`border-none `, `${tHeadClass} `)}>
+      <tr className={twMerge(`z-10  sticky top-0`, ` ${trHeadClass} `)}>
         {selectedRows && (
-          <th className={`border ${thHeadClass} text-center`}>
+          <th
+            className={twMerge(`   ${tableInsideClass} `, ` ${thHeadClass} `)}
+          >
             <Checkbox onChange={toggle} checked={selectAll} />
           </th>
         )}
         {columns &&
           columns.length &&
-          columns?.map((item: Record<string, any>, index) => {
+          columns?.map((item, index) => {
             return (
               <th
                 key={index}
-                className={`relative first:pl-3 last:pr-3  border  whitespace-nowrap text-center ${thHeadClass}`}
+                className={twMerge(
+                  `   px-5 ${tableInsideClass} whitespace-nowrap`,
+                  `  ${thHeadClass}`
+                )}
               >
                 <span className="font-bold">{item?.title}</span>
               </th>
@@ -68,22 +89,25 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
     </thead>
   );
   const TableBody = () => (
-    <tbody className={`text-sm font-medium ${tBodyClass}`}>
-      {data?.map((item: any, index: number) => {
+    <tbody className={twMerge(`text-sm font-medium`, ` ${tBodyClass}`)}>
+      {data?.map((item, index: number) => {
         return (
           <React.Fragment key={index}>
             <tr
               key={index}
-              className={`${trBodyClass}`}
-              style={{
-                background: item?.style?.color,
-                color: item?.style?.textColor,
-                fontWeight: item?.style?.fontWeight,
-              }}
+              className={twMerge(
+                `border-none  ${striped && index % 2 !== 0 && stripedClass}`,
+                `${trBodyClass}`
+              )}
             >
               {/* for selection single td */}
               {selectedRows && setSelectedRows && (
-                <td className={`border m-0 p-0 text-center ${tdBodyClass} `}>
+                <td
+                  className={twMerge(
+                    `${tableInsideClass} `,
+                    `  ${tdBodyClass} `
+                  )}
+                >
                   {toggleRowSelection(
                     item,
                     rowId,
@@ -98,7 +122,10 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
                 columns?.map((column, idx) => (
                   <td
                     key={idx}
-                    className={`relative p-0 m-0  overflow-hidden px-5 border  whitespace-nowrap ${tdBodyClass} ${column?.className} `}
+                    className={twMerge(
+                      `relative p-0 m-0 px-5 overflow-hidden ${tableInsideClass}  whitespace-nowrap`,
+                      ` ${tdBodyClass} ${column?.className} `
+                    )}
                   >
                     {renderCell(item, column, index, data)}
                   </td>
@@ -111,10 +138,13 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   );
   return (
     <div>
-      <main className="htable-scrollbar flex flex-col !max-h-[calc(100vh-350px)] overflow-y-auto ">
+      <main className={`relative ${tableWrapperClass}`}>
         <div>
           <table
-            className={`m-0 p-0 table-auto relative  border-collapse border-none w-full ${tableClass} `}
+            className={twMerge(
+              `m-0 p-0 table-auto relative border-spacing-0  border-separate  min-w-full `,
+              ` ${tableClass} `
+            )}
           >
             {TableHead()}
 

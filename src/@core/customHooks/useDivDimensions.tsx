@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface dimensionProps {
   x: number;
@@ -12,7 +12,7 @@ export interface dimensionProps {
   offsetWidth: number;
   offsetLeft: number;
 }
-type EventType = 'resize' | 'scroll';
+type EventType = "resize" | "scroll";
 const useDivDimensions = (events?: EventType[]) => {
   const [dimension, setDimension] = useState<DOMRect | dimensionProps | null>(
     null
@@ -40,24 +40,54 @@ const useDivDimensions = (events?: EventType[]) => {
     }
   }, []);
 
+  // useEffect(() => {
+  //   updateDimensions();
+  //   if (events && events.length > 0) {
+  //     events.forEach((event) => {
+  //       window.addEventListener(event, updateDimensions);
+  //     });
+  //     updateDimensions();
+  //     return () => {
+  //       events.forEach((event) => {
+  //         window.removeEventListener(event, updateDimensions);
+  //       });
+  //     };
+  //   } else {
+  //     updateDimensions();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [updateDimensions]);
+
   useEffect(() => {
-    updateDimensions();
+    // Initialize ResizeObserver
+    const resizeObserver = new ResizeObserver(() => {
+      updateDimensions(); // Trigger dimension update whenever the element size changes
+    });
+
+    // Start observing the divRef element
+    if (divRef.current) {
+      resizeObserver.observe(divRef.current);
+    }
+
+    // Clean up observer on unmount
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [updateDimensions]);
+
+  useEffect(() => {
     if (events && events.length > 0) {
       events.forEach((event) => {
         window.addEventListener(event, updateDimensions);
       });
-      updateDimensions();
+
       return () => {
         events.forEach((event) => {
           window.removeEventListener(event, updateDimensions);
         });
       };
-    } else {
-      updateDimensions();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [updateDimensions]);
-
+  }, [events, updateDimensions]);
   return { dimension, divRef };
 };
 

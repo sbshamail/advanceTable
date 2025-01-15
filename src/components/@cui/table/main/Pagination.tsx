@@ -52,12 +52,12 @@ const Pagination: FC<PaginationType> = ({
     return pages;
   };
   return (
-    <div className="w-full sticky  right-0 bottom-0 z-10 flex justify-end items-center p-4 space-x-4">
+    <div className="w-full sticky  right-0 bottom-0 z-10 flex justify-end items-center  px-4 space-x-4">
       <div className="flex space-x-2 items-center">
         <span className="font-bold select-none">Total: {total}</span>
         <IconDropdown
           customIcon={() => (
-            <div className="select-none border border-border hover:bg-accent Transition px-2">
+            <div className="select-none border border-border rounded-lg hover:bg-accent Transition px-2">
               Limit {dataLimit}
             </div>
           )}
@@ -69,26 +69,8 @@ const Pagination: FC<PaginationType> = ({
             }))}
           style="dropdown"
         />
-        {/* <select
-          value={dataLimit}
-          onChange={handledataLimitChange}
-          className={`border p-1 rounded cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 Transition
-          )}`}
-        >
-          {[10, 20, 50, 100, 500, 1000, total]
-            .filter((size) => size <= total)
-            .map((size) => (
-              <option
-                key={size}
-                value={size}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 Transition"
-              >
-                {size} Limit
-              </option>
-            ))}
-        </select> */}
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 select-none">
         <Button
           variant="accent"
           onClick={() => handlePageChange(1)}

@@ -1,15 +1,18 @@
 import React, { FC } from "react";
 import TableMainBody from "./main/TableMainBody";
 import { TableMainBodyTypes } from "./main/TableMainBody";
-import { HeaderType } from "./main/TableHeader";
 import { FromToDateFilterTypes } from "./filters/FromToDateFilter";
 import Pagination, { PaginationType } from "./main/Pagination";
 import TableHeader from "./main/TableHeader";
+import { GlobalFilterType } from "./filters/GlobalFilter";
 
-interface Header extends FromToDateFilterTypes {
+type ClassNameType = React.ComponentProps<"div">["className"];
+
+interface Header extends FromToDateFilterTypes, GlobalFilterType {
   headerAction?: () => React.JSX.Element;
 }
 interface TableProps extends TableMainBodyTypes {
+  layoutClass?: ClassNameType;
   showPagination?: boolean;
   total: number;
   pagination?: PaginationType;
@@ -22,6 +25,8 @@ const Table: FC<TableProps> = ({
   rowId,
   selectedRows,
   setSelectedRows,
+  tableClasses,
+  layoutClass = "p-4 py-10 shadow-2xl shadow-border border border-border rounded-[20px] space-y-2",
   header,
 
   pagination,
@@ -44,14 +49,12 @@ const Table: FC<TableProps> = ({
       columns={columns}
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
-      tableClass="shadow shadow-border"
-      tHeadClass="bg-card text-card-foreground "
-      trBodyClass="hover:bg-effect-xl hover:text-primary-foreground "
+      tableClasses={tableClasses}
     />
   );
 
   return (
-    <div>
+    <div className={`${layoutClass}`}>
       <TableHeader
         dates={{
           fromDate,
@@ -60,6 +63,7 @@ const Table: FC<TableProps> = ({
           setToDate,
         }}
         headerAction={headerAction}
+        columns={columns}
       />
       {tableMain()}
       {showPagination && pagination && (
