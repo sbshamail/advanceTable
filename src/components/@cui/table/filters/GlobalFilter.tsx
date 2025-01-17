@@ -2,9 +2,10 @@ import React, { ChangeEvent } from "react";
 import TextField from "@/components/textField/TextField";
 import Iconify from "@/@core/common/icon";
 export interface GlobalFilterType {
+  globalFilter?: string;
   setGlobalFilter?: (value: string) => void;
 }
-const GlobalFilter = ({ setGlobalFilter }: GlobalFilterType) => {
+const GlobalFilter = ({ globalFilter, setGlobalFilter }: GlobalFilterType) => {
   const handleGlobalFilter = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     if (setGlobalFilter) {
@@ -12,7 +13,14 @@ const GlobalFilter = ({ setGlobalFilter }: GlobalFilterType) => {
     }
   };
   const prefix = () => <Iconify icon="material-symbols-light:search" />;
-  return <TextField onChange={handleGlobalFilter} prefix={prefix} />;
+  return (
+    <TextField
+      value={globalFilter}
+      placeholder="search..."
+      onChange={handleGlobalFilter}
+      prefix={prefix}
+    />
+  );
 };
 
 export default GlobalFilter;

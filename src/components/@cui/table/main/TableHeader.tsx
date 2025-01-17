@@ -1,25 +1,44 @@
 import React, { FC, JSX } from "react";
-import FromToDateFilter from "../filters/FromToDateFilter";
-import { FromToDateFilterTypes } from "../filters/FromToDateFilter";
 import { hasObjectValues } from "@/utils/helpers";
 import { ColumnType } from "@/components/table/tableInterface";
+// component
+import FromToDateFilter, {
+  FromToDateFilterTypes,
+} from "../filters/FromToDateFilter";
 import GlobalFilter, { GlobalFilterType } from "../filters/GlobalFilter";
-import HeaderFilterList from "../filters/HeaderFilterList";
+import ShowColumnFilter, {
+  ColumnFilterFieldsType,
+} from "../component/ShowColumnFilter";
+
+import HeaderFilterList, {
+  HeaderColumnFilter,
+} from "../filters/HeaderFilterList";
 export interface HeaderType {
   headerAction?: () => JSX.Element;
   dates: FromToDateFilterTypes;
-  columns: ColumnType[];
-  globalFilter?: GlobalFilterType;
+
+  globalFilters?: GlobalFilterType;
+  columnsFilter?: HeaderColumnFilter;
+  showColumnFilterFields?: ColumnFilterFieldsType;
 }
-const TableHeader: FC<HeaderType> = ({
+
+interface Props extends HeaderType {
+  columns: ColumnType[];
+}
+const TableHeader: FC<Props> = ({
   dates,
   headerAction,
-  globalFilter,
+  globalFilters,
   columns,
+  columnsFilter,
+  showColumnFilterFields,
 }) => {
   const { fromDate, setFromDate, toDate, setToDate } = dates || {};
+  const { columnFilter, setColumnFilter } = columnsFilter || {};
+  const { setGlobalFilter, globalFilter } = globalFilters || {};
+  const { columnFilterField, setColumnFilterFields } =
+    showColumnFilterFields || {};
 
-  const { setGlobalFilter } = globalFilter || {};
   return (
     <div>
       <div className="">
@@ -33,10 +52,25 @@ const TableHeader: FC<HeaderType> = ({
                 setToDate={setToDate}
               />
             )}
-            <GlobalFilter setGlobalFilter={setGlobalFilter} />
+            <div className="flex items-center space-x-2">
+              <GlobalFilter
+                setGlobalFilter={setGlobalFilter}
+                globalFilter={globalFilter}
+              />
+              <ShowColumnFilter
+                columns={columns}
+                columnFilterField={columnFilterField}
+                setColumnFilterFields={setColumnFilterFields}
+              />
+            </div>
           </div>
-          {headerAction && <div className="z-50">{headerAction()}</div>}
-          <HeaderFilterList columns={columns} />
+          {headerAction && <div className="">{headerAction()}</div>}
+
+          <HeaderFilterList
+            columnFilterField={columnFilterField}
+            columnFilter={columnFilter}
+            setColumnFilter={setColumnFilter}
+          />
         </div>
       </div>
     </div>

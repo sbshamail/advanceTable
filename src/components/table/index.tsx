@@ -1,11 +1,15 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
 import Table from "../@cui/table";
-import { ActionMenuListType } from "./tableInterface";
+import {
+  ActionMenuListType,
+  ColumnFilterType,
+  ColumnType,
+} from "./tableInterface";
 import TableHeaderAction from "./action/HeaderAction";
 interface Props {
   data: any[];
-  columns: any[];
+  columns: ColumnType[];
   actionMenuList: ActionMenuListType; // function to generate action menu items based on row data.
 }
 import { demoNewActionMenu } from "./headerActionList/demo";
@@ -17,9 +21,11 @@ const MyTable: FC<Props> = ({ data, columns, actionMenuList }) => {
     []
   );
   // filter
+  const [columnFilterField, setColumnFilterFields] = useState<ColumnType[]>([]);
   const [fromDate, setFromDate] = useState<Date | undefined>();
   const [toDate, setToDate] = useState<Date | undefined>(new Date());
   const [globalFilter, setGlobalFilter] = useState<string>("");
+  const [columnFilter, setColumnFilter] = useState<ColumnFilterType[]>([]);
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [dataLimit, setDataLimit] = useState(20);
@@ -75,12 +81,27 @@ const MyTable: FC<Props> = ({ data, columns, actionMenuList }) => {
       setSelectedRows={setSelectedRows}
       //header
       header={{
-        fromDate,
-        setFromDate,
-        toDate,
-        setToDate,
         headerAction,
-        setGlobalFilter,
+        dates: {
+          fromDate,
+          setFromDate,
+          toDate,
+          setToDate,
+        },
+        columnsFilter: {
+          //these are filter to filterize data
+          columnFilter,
+          setColumnFilter,
+        },
+        globalFilters: {
+          setGlobalFilter,
+          globalFilter,
+        },
+        showColumnFilterFields: {
+          //these are field that show
+          columnFilterField,
+          setColumnFilterFields,
+        },
       }}
       //pagination
       showPagination={true}

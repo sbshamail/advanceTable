@@ -35,7 +35,6 @@ export const handleRemove = (
   setSelectedRows: (rows: Record<string, any>[]) => void
 ) => {
   setSelectedRows([]);
-  console.log("handleRemove");
 };
 export const handleActionMenu = (
   toggleDrawer: () => void,
@@ -51,7 +50,6 @@ export const handleActionMenu = (
     title,
     multiSelected,
   }));
-  console.log("handleActionMenu");
 };
 
 export const actionMenuContents = (

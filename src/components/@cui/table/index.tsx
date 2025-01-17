@@ -3,20 +3,19 @@ import TableMainBody from "./main/TableMainBody";
 import { TableMainBodyTypes } from "./main/TableMainBody";
 import { FromToDateFilterTypes } from "./filters/FromToDateFilter";
 import Pagination, { PaginationType } from "./main/Pagination";
-import TableHeader from "./main/TableHeader";
+import TableHeader, { HeaderType } from "./main/TableHeader";
 import { GlobalFilterType } from "./filters/GlobalFilter";
+import { HeaderColumnFilter } from "./filters/HeaderFilterList";
+import { ColumnFilterFieldsType } from "./component/ShowColumnFilter";
 
 type ClassNameType = React.ComponentProps<"div">["className"];
 
-interface Header extends FromToDateFilterTypes, GlobalFilterType {
-  headerAction?: () => React.JSX.Element;
-}
 interface TableProps extends TableMainBodyTypes {
   layoutClass?: ClassNameType;
   showPagination?: boolean;
   total: number;
   pagination?: PaginationType;
-  header?: Header;
+  header: HeaderType;
 }
 const Table: FC<TableProps> = ({
   data,
@@ -28,20 +27,9 @@ const Table: FC<TableProps> = ({
   tableClasses,
   layoutClass = "p-4 py-10 shadow-2xl shadow-border border border-border rounded-[20px] space-y-2",
   header,
-
   pagination,
   showPagination = false,
 }) => {
-  const {
-    currentPage = 1,
-    setCurrentPage = () => {},
-    dataLimit = total,
-    setDataLimit = () => {},
-  } = pagination || {};
-
-  const { fromDate, setFromDate, toDate, setToDate, headerAction } =
-    header || {};
-
   const tableMain = () => (
     <TableMainBody
       data={data}
@@ -56,22 +44,20 @@ const Table: FC<TableProps> = ({
   return (
     <div className={`${layoutClass}`}>
       <TableHeader
-        dates={{
-          fromDate,
-          setFromDate,
-          toDate,
-          setToDate,
-        }}
-        headerAction={headerAction}
+        dates={header?.dates}
+        columnsFilter={header?.columnsFilter}
+        globalFilters={header?.globalFilters}
+        showColumnFilterFields={header?.showColumnFilterFields}
+        headerAction={header?.headerAction}
         columns={columns}
       />
       {tableMain()}
       {showPagination && pagination && (
         <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          dataLimit={dataLimit}
-          setDataLimit={setDataLimit}
+          currentPage={pagination?.currentPage}
+          setCurrentPage={pagination?.setCurrentPage}
+          dataLimit={pagination?.dataLimit}
+          setDataLimit={pagination?.setDataLimit}
           total={total}
         />
       )}

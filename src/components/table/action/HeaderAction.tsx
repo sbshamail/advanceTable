@@ -57,6 +57,7 @@ const TableHeaderAction: FC<TableHeaderActionType> = ({
         listCondition.length > 0 && (
           <div key={index}>
             <IconDropdown
+              mouseTrigger={true}
               icon={menu.icon}
               contents={handleActionMenuContents(listCondition)}
               style="dropdown"
@@ -90,6 +91,7 @@ const TableHeaderAction: FC<TableHeaderActionType> = ({
         <div className="flex items-center relative">
           {menuListCondition && menuListCondition.length > 0 && (
             <IconDropdown
+              mouseTrigger={true}
               icon="mdi:call-to-action"
               contents={handleActionMenuContents(menuListCondition)}
               style="dropdown"
