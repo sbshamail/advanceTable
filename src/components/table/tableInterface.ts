@@ -28,6 +28,7 @@ export interface ColumnType {
   render?: ({ row, index, data, cell }: RenderType) => void;
   className?: React.ComponentProps<"div">["className"];
 }
+export type ColumnKey = "title" | "accessor" | "filterId";
 export interface ColumnFilterType {
   id: string;
   value: string;

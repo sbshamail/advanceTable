@@ -1,4 +1,4 @@
-import React, { FC, JSX } from "react";
+import React, { FC, JSX, useState } from "react";
 import { hasObjectValues } from "@/utils/helpers";
 import { ColumnType } from "@/components/table/tableInterface";
 // component
@@ -13,7 +13,12 @@ import ShowColumnFilter, {
 import HeaderFilterList, {
   HeaderColumnFilter,
 } from "../filters/HeaderFilterList";
-export interface HeaderType {
+
+import ColumnHideShow, {
+  ColumnHideShowType,
+} from "../component/ColumnHideShow";
+
+export interface HeaderType extends ColumnHideShowType {
   headerAction?: () => JSX.Element;
   dates: FromToDateFilterTypes;
 
@@ -32,6 +37,8 @@ const TableHeader: FC<Props> = ({
   columns,
   columnsFilter,
   showColumnFilterFields,
+  showOnlyColumns,
+  setShowOnlyColumns,
 }) => {
   const { fromDate, setFromDate, toDate, setToDate } = dates || {};
   const { columnFilter, setColumnFilter } = columnsFilter || {};
@@ -53,15 +60,26 @@ const TableHeader: FC<Props> = ({
               />
             )}
             <div className="flex items-center space-x-2">
-              <GlobalFilter
-                setGlobalFilter={setGlobalFilter}
-                globalFilter={globalFilter}
-              />
-              <ShowColumnFilter
-                columns={columns}
-                columnFilterField={columnFilterField}
-                setColumnFilterFields={setColumnFilterFields}
-              />
+              {setGlobalFilter && (
+                <GlobalFilter
+                  setGlobalFilter={setGlobalFilter}
+                  globalFilter={globalFilter}
+                />
+              )}
+              {setColumnFilterFields && (
+                <ShowColumnFilter
+                  columns={showOnlyColumns ?? columns}
+                  columnFilterField={columnFilterField}
+                  setColumnFilterFields={setColumnFilterFields}
+                />
+              )}
+              {setShowOnlyColumns && (
+                <ColumnHideShow
+                  allColumns={columns}
+                  showOnlyColumns={showOnlyColumns}
+                  setShowOnlyColumns={setShowOnlyColumns}
+                />
+              )}
             </div>
           </div>
           {headerAction && <div className="">{headerAction()}</div>}

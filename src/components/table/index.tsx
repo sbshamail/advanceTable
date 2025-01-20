@@ -20,6 +20,9 @@ const MyTable: FC<Props> = ({ data, columns, actionMenuList }) => {
   const [selectedRows, setSelectedRows] = useState<Record<string, any>[] | []>(
     []
   );
+  // column Hide Show
+  const [showOnlyColumns, setShowOnlyColumns] = useState(columns);
+
   // filter
   const [columnFilterField, setColumnFilterFields] = useState<ColumnType[]>([]);
   const [fromDate, setFromDate] = useState<Date | undefined>();
@@ -102,6 +105,8 @@ const MyTable: FC<Props> = ({ data, columns, actionMenuList }) => {
           columnFilterField,
           setColumnFilterFields,
         },
+        showOnlyColumns,
+        setShowOnlyColumns,
       }}
       //pagination
       showPagination={true}

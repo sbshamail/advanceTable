@@ -1,12 +1,8 @@
 import React, { FC } from "react";
 import TableMainBody from "./main/TableMainBody";
 import { TableMainBodyTypes } from "./main/TableMainBody";
-import { FromToDateFilterTypes } from "./filters/FromToDateFilter";
 import Pagination, { PaginationType } from "./main/Pagination";
 import TableHeader, { HeaderType } from "./main/TableHeader";
-import { GlobalFilterType } from "./filters/GlobalFilter";
-import { HeaderColumnFilter } from "./filters/HeaderFilterList";
-import { ColumnFilterFieldsType } from "./component/ShowColumnFilter";
 
 type ClassNameType = React.ComponentProps<"div">["className"];
 
@@ -34,7 +30,7 @@ const Table: FC<TableProps> = ({
     <TableMainBody
       data={data}
       rowId={rowId}
-      columns={columns}
+      columns={header?.showOnlyColumns ?? columns}
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
       tableClasses={tableClasses}
@@ -48,6 +44,8 @@ const Table: FC<TableProps> = ({
         columnsFilter={header?.columnsFilter}
         globalFilters={header?.globalFilters}
         showColumnFilterFields={header?.showColumnFilterFields}
+        showOnlyColumns={header?.showOnlyColumns}
+        setShowOnlyColumns={header?.setShowOnlyColumns}
         headerAction={header?.headerAction}
         columns={columns}
       />
