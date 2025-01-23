@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useState } from "react";
 import { renderCell } from "../depends/renderCell";
 import { toggleRowSelection } from "../depends/utility";
-import Checkbox from "@/components/textField/Checkbox";
+import Checkbox from "@/components/@cui/textField/Checkbox";
 import { ColumnType } from "@/components/table/tableInterface";
 import { twMerge } from "tailwind-merge";
 

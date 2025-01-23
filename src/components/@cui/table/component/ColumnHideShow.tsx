@@ -1,6 +1,12 @@
 import React, { FC } from "react";
+
 import IconDropdown, { ContentItem } from "../../dropDown/IconDropdown";
 import { ColumnType, ColumnKey } from "@/components/table/tableInterface";
+import {
+  DraggableSwapy,
+  DraggableSwapyContent,
+} from "../../draggable/DraggableSwapy";
+import DraggableDropdown from "../../dropDown/DraggableDropdown";
 
 export interface ColumnHideShowType {
   showOnlyColumns?: ColumnType[];
@@ -53,7 +59,7 @@ const ColumnHideShow: FC<Props> = ({
     }));
   return (
     <div>
-      <IconDropdown
+      <DraggableDropdown
         contents={contents}
         icon={"mingcute:column-fill"}
         style="dropdown"

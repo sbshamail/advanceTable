@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import Iconify from "@/@core/common/icon";
-import InputDatePicker from "../../popOver/datePicker/InputDatePicker";
+import InputDatePicker from "../../datePicker/InputDatePicker";
 
 export interface FromToDateFilterTypes {
   fromDate?: Date;

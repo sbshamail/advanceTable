@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import TextField from "@/components/textField/TextField";
+import TextField from "@/components/@cui/textField/TextField";
 import Iconify from "@/@core/common/icon";
 export interface GlobalFilterType {
   globalFilter?: string;

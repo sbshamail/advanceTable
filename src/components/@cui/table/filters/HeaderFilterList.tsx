@@ -5,7 +5,7 @@ import {
   ColumnFilterType,
   ColumnType,
 } from "@/components/table/tableInterface";
-import SearchTextField from "@/components/textField/SearchTextField";
+import SearchTextField from "@/components/@cui/textField/SearchTextField";
 
 export interface HeaderColumnFilter {
   columnFilter?: ColumnFilterType[];

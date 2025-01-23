@@ -1,5 +1,5 @@
 import { getNestedProperty } from "@/utils/helpers";
-import Checkbox from "@/components/textField/Checkbox";
+import Checkbox from "@/components/@cui/textField/Checkbox";
 
 // Function to toggle selection of a single row
 export const toggleRowSelection = (
