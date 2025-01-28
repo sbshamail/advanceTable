@@ -1,3 +1,5 @@
+import { ColumnType } from "../tableInterface";
+
 export const demoData = [
   { id: 1, name: "John Doe", age: 30, email: "john.doe@example.com" },
   { id: 2, name: "Jane Smith", age: 25, email: "jane.smith@example.com" },
@@ -121,9 +123,12 @@ export const demoData = [
   { id: 40, name: "Sophie Lee", age: 24, email: "sophie.lee@example.com" },
 ];
 
-export const demoColumns = [
+export const demoColumns: ColumnType[] = [
   { title: "ID", accessor: "id", filterId: "id" },
   { title: "Name", accessor: "name", filterId: "name" },
   { title: "Age", accessor: "age", filterId: "age" },
   { title: "Email", accessor: "email", filterId: "email" },
+  { title: "Email1", accessor: "email", filterId: "email" },
+  { title: "Email2", accessor: "email", filterId: "email" },
+  { title: "Email3", accessor: "email", filterId: "email" },
 ];

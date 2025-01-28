@@ -1,43 +1,33 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import IconDropdown, {
   ContentItem,
   ContentList,
   ContentListType,
   Props,
 } from "./IconDropdown";
-import {
-  DraggableSwapy,
-  DraggableSwapyContent,
-} from "../draggable/DraggableSwapy";
+import DragDropArray from "../draggable/DragDropArray";
 import { ClassNameType } from "@/utils/interfaces/commonTypes";
 
 interface DraggableDropdownType extends Props {
   contents: ContentItem[];
   contentId?: string; //use for key title in contents,
   contentClass?: ClassNameType;
+  setShowOnlyColumns: any;
 }
 const DraggableDropdown: FC<DraggableDropdownType> = ({
   contents,
   contentClass,
   contentId,
+  setShowOnlyColumns,
   ...props
 }) => {
-  const [contentss, setContents] = React.useState(contents);
-  console.log(contentss);
   return (
     <IconDropdown {...props}>
-      <DraggableSwapy setContents={setContents}>
-        {contentss.map((item, index) => (
-          <DraggableSwapyContent key={index} swapyKey={item.title}>
-            <ContentList
-              content={item}
-              key={index}
-              contentClass={contentClass}
-              contentId={contentId}
-            />
-          </DraggableSwapyContent>
-        ))}
-      </DraggableSwapy>
+      <DragDropArray
+        setItems={setShowOnlyColumns}
+        items={contents}
+        renderItem={(item) => <ContentList content={item} />}
+      />
     </IconDropdown>
   );
 };

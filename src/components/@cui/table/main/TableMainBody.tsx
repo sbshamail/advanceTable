@@ -4,6 +4,8 @@ import { toggleRowSelection } from "../depends/utility";
 import Checkbox from "@/components/@cui/textField/Checkbox";
 import { ColumnType } from "@/components/table/tableInterface";
 import { twMerge } from "tailwind-merge";
+import Iconify from "@/@core/common/icon";
+import { ExtentableContent } from "../component/Expendable";
 
 type ClassNameType = React.ComponentProps<"div">["className"];
 
@@ -28,6 +30,8 @@ export interface TableMainBodyTypes {
   setSelectedRows?: (rows: Record<string, any>[]) => void;
   rowId?: "id" | "_id" | string;
   tableClasses?: TableClassesType;
+  expandable?: boolean;
+  expandingContent?: () => React.JSX.Element;
 }
 const TableMainBody: FC<TableMainBodyTypes> = ({
   data,
@@ -36,6 +40,8 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   selectedRows,
   setSelectedRows = () => {},
   tableClasses,
+  expandable = true,
+  expandingContent,
 }) => {
   const {
     tableWrapperClass,
@@ -51,6 +57,20 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
     stripedClass,
   } = tableClasses || {};
   const [selectAll, setSelectAll] = useState(false);
+  // expendable states
+  const [expendableWidth, setExpendableWidth] = useState(0);
+  const [openExpendableRow, setOpenExpendableRow] = useState<number>();
+
+  const handleExpandRow = (index: number) => {
+    setSelectAll(false);
+    setSelectedRows([]);
+    if (index === expendableWidth) {
+      setOpenExpendableRow(-1);
+      return;
+    }
+    setOpenExpendableRow(index);
+  };
+
   const toggle = useCallback(() => {
     if (selectAll) {
       setSelectedRows([]);
@@ -63,6 +83,7 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   const TableHead = () => (
     <thead className={twMerge(`border-none `, `${tHeadClass} `)}>
       <tr className={twMerge(`z-10  sticky top-0`, ` ${trHeadClass} `)}>
+        {expandable && <th></th>}
         {selectedRows && (
           <th
             className={twMerge(`   ${tableInsideClass} `, ` ${thHeadClass} `)}
@@ -100,6 +121,20 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
                 `${trBodyClass}`
               )}
             >
+              {/* for expenadle td arrow show*/}
+
+              {expandable && (
+                <td className="relative h-0 cursor-pointer">
+                  <span className="" onClick={() => handleExpandRow(index)}>
+                    {openExpendableRow === index ? (
+                      <Iconify icon="mingcute:down-fill" />
+                    ) : (
+                      <Iconify icon="mingcute:right-fill" />
+                    )}
+                  </span>
+                </td>
+              )}
+
               {/* for selection single td */}
               {selectedRows && setSelectedRows && (
                 <td
@@ -131,6 +166,13 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
                   </td>
                 ))}
             </tr>
+            {expandable && openExpendableRow === index && (
+              <ExtentableContent
+                item={item}
+                columns={columns}
+                openExpendableRow={openExpendableRow}
+              />
+            )}
           </React.Fragment>
         );
       })}

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import TableMainBody from "./main/TableMainBody";
 import { TableMainBodyTypes } from "./main/TableMainBody";
 import Pagination, { PaginationType } from "./main/Pagination";
@@ -30,7 +30,7 @@ const Table: FC<TableProps> = ({
     <TableMainBody
       data={data}
       rowId={rowId}
-      columns={header?.showOnlyColumns ?? columns}
+      columns={header.showOnlyColumns ? header.showOnlyColumns : columns}
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
       tableClasses={tableClasses}

@@ -1,12 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
-import IconDropdown, { ContentItem } from "../../dropDown/IconDropdown";
+import IconDropdown from "../../dropDown/IconDropdown";
 import { ColumnType, ColumnKey } from "@/components/table/tableInterface";
-import {
-  DraggableSwapy,
-  DraggableSwapyContent,
-} from "../../draggable/DraggableSwapy";
-import DraggableDropdown from "../../dropDown/DraggableDropdown";
+
+import DragDropArray from "../../draggable/DragDropArray";
+import { ClassNameType } from "@/utils/interfaces/commonTypes";
 
 export interface ColumnHideShowType {
   showOnlyColumns?: ColumnType[];
@@ -14,25 +12,25 @@ export interface ColumnHideShowType {
 }
 interface Props extends ColumnHideShowType {
   allColumns: ColumnType[];
-  itemKey?: ColumnKey;
+  columnKey?: ColumnKey;
 }
 const ColumnHideShow: FC<Props> = ({
   showOnlyColumns,
   setShowOnlyColumns,
   allColumns,
-  itemKey = "title",
+  columnKey = "title",
 }) => {
   const handleHideShows = (item: ColumnType) => {
     if (setShowOnlyColumns) {
       // Find the index of the column in `allColumns`
       const indexInAllColumns = allColumns.findIndex(
-        (v) => v[itemKey] === item[itemKey]
+        (v) => v[columnKey] === item[columnKey]
       );
 
-      if (showOnlyColumns?.some((v) => v[itemKey] === item[itemKey])) {
+      if (showOnlyColumns?.some((v) => v[columnKey] === item[columnKey])) {
         // Remove the item if it is already included
         setShowOnlyColumns((prev) =>
-          prev.filter((v) => v[itemKey] !== item[itemKey])
+          prev.filter((v) => v[columnKey] !== item[columnKey])
         );
       } else {
         // Add the item if it is not included
@@ -46,26 +44,46 @@ const ColumnHideShow: FC<Props> = ({
     }
   };
 
-  const contents: ContentItem[] = allColumns
-    .filter((column) => column[itemKey])
-    .map((column) => ({
-      title: column.title,
-      click: () => handleHideShows(column),
-      className: `  ${
-        showOnlyColumns?.some((v) => v[itemKey] === column[itemKey])
-          ? "bg-effect-2xl hover:bg-yellow-600"
-          : ""
-      }`,
-    }));
+  const ContentDiv = ({
+    column,
+    className,
+  }: {
+    column: ColumnType;
+    className?: ClassNameType;
+  }) => (
+    <span
+      className={`w-full px-2 py-1 flex items-center space-x-2 cursor-pointer hover:bg-accent  ${className}`}
+      onClick={() => handleHideShows(column)}
+    >
+      <span className="text-sm">{column[columnKey]}</span>
+    </span>
+  );
+
   return (
     <div>
-      <DraggableDropdown
-        contents={contents}
+      <IconDropdown
         icon={"mingcute:column-fill"}
         style="dropdown"
         mouseTrigger={true}
         toggleOnContent={false}
-      />
+      >
+        <DragDropArray
+          setItems={setShowOnlyColumns}
+          items={showOnlyColumns}
+          renderItem={(column) =>
+            ContentDiv({
+              column,
+              className: "bg-effect-2xl hover:bg-yellow-600",
+            })
+          }
+        />
+        {allColumns
+          .filter(
+            (item) =>
+              !showOnlyColumns?.some((column) => column.title === item.title)
+          )
+          ?.map((item, index) => ContentDiv({ column: item }))}
+      </IconDropdown>
     </div>
   );
 };
