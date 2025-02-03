@@ -5,16 +5,27 @@ import {
   ActionMenuListType,
   ColumnFilterType,
   ColumnType,
+  ExpandingTableType,
 } from "./tableInterface";
 import TableHeaderAction from "./action/HeaderAction";
 interface Props {
-  data: any[];
+  data: Record<string, any>[];
   columns: ColumnType[];
   actionMenuList: ActionMenuListType; // function to generate action menu items based on row data.
+  expandable?: boolean;
+  multiExpandable?: boolean;
+  expandingContent?: ExpandingTableType;
 }
 import { demoNewActionMenu } from "./headerActionList/demo";
 import { TableClassesType } from "../@cui/table/main/TableMainBody";
-const MyTable: FC<Props> = ({ data, columns, actionMenuList }) => {
+const MyTable: FC<Props> = ({
+  data,
+  columns,
+  actionMenuList,
+  expandable,
+  multiExpandable,
+  expandingContent,
+}) => {
   const [paginationData, setPaginationData] = useState(data);
   //selectedRows
   const [selectedRows, setSelectedRows] = useState<Record<string, any>[] | []>(
@@ -82,6 +93,9 @@ const MyTable: FC<Props> = ({ data, columns, actionMenuList }) => {
       rowId="id"
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
+      expandable={expandable}
+      multiExpandable={multiExpandable}
+      expandingContent={expandingContent}
       //header
       header={{
         headerAction,

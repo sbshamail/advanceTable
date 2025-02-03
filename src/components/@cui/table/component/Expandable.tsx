@@ -1,5 +1,8 @@
 import Iconify from "@/@core/common/icon";
-import { ColumnType } from "@/components/table/tableInterface";
+import {
+  ColumnType,
+  ExpandingTableType,
+} from "@/components/table/tableInterface";
 interface ExtendableArrowType {
   setSelectAll: (bool: boolean) => void;
   setSelectedRows: (rows: Record<string, any>[]) => void;
@@ -53,17 +56,22 @@ export const ExtendableArrow = ({
     </td>
   );
 };
+
 interface ExtentableContentType {
   item: Record<string, any>;
-  columns: ColumnType[];
+  data: Record<string, any>[];
   index: number;
-  expandableWidth: string;
+  columns: ColumnType[];
+  expandingContent?: ExpandingTableType;
+  expandableWidth?: string | number;
 }
 export const ExtentableContent = ({
   item,
-  columns,
+  data,
   index,
+  columns,
   expandableWidth,
+  expandingContent,
 }: ExtentableContentType) => {
   return (
     <tr className="" key={index}>
@@ -72,7 +80,12 @@ export const ExtentableContent = ({
           style={{ width: `${expandableWidth}px` }}
           className=" bg-green-600 "
         >
-          dsfsdfsdf
+          {expandingContent &&
+            expandingContent({
+              row: item,
+              index,
+              data,
+            })}
         </div>
       </td>
     </tr>
@@ -84,6 +97,6 @@ export const isExpandable = (
   index: number,
   multiExpandable?: boolean
 ) =>
-  multiExpandable
-    ? (openExpandableRow as number[])?.includes(index) // Correctly cast to `number[]`
+  multiExpandable && Array.isArray(openExpandableRow)
+    ? openExpandableRow?.includes(index) // Correctly cast to `number[]`
     : openExpandableRow === index;

@@ -5,6 +5,7 @@ export const useDebounceCallback = <T extends (...args: any[]) => void>(
   func: T,
   delay: number
 ) => {
+  // eslint-disable-next-line no-undef
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
   const debouncedCallback = useCallback(
     (...args: Parameters<T>) => {

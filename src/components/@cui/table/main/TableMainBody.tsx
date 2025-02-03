@@ -1,8 +1,12 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
+import useDivDimensions from "@/@core/customHooks/useDivDimensions";
 import { renderCell } from "../depends/renderCell";
 import { toggleRowSelection } from "../depends/utility";
 import Checkbox from "@/components/@cui/textField/Checkbox";
-import { ColumnType } from "@/components/table/tableInterface";
+import {
+  ColumnType,
+  ExpandingTableType,
+} from "@/components/table/tableInterface";
 import { twMerge } from "tailwind-merge";
 
 import {
@@ -36,7 +40,7 @@ export interface TableMainBodyTypes {
   tableClasses?: TableClassesType;
   expandable?: boolean;
   multiExpandable?: boolean;
-  expandingContent?: () => React.JSX.Element;
+  expandingContent?: ExpandingTableType;
 }
 const TableMainBody: FC<TableMainBodyTypes> = ({
   data,
@@ -45,8 +49,8 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   selectedRows,
   setSelectedRows = () => {},
   tableClasses,
-  expandable = true,
-  multiExpandable = true,
+  expandable,
+  multiExpandable,
   expandingContent,
 }) => {
   const {
@@ -65,18 +69,12 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   const [selectAll, setSelectAll] = useState(false);
   // expendable states
 
-  const [expandableWidth, setExpandableWidth] = useState(0);
   const [openExpandableRow, setOpenExpandableRow] = useState<number | number[]>(
     [-1]
   );
-  // ref width , this tableWidth is use for nested table width
-  const tableRef = useRef(null);
-  useEffect(() => {
-    if (tableRef.current) {
-      const width = tableRef?.current?.offsetWidth;
-      setExpandableWidth(width); // Subtract the specific pixels
-    }
-  }, [data]); // Dependency on data if the table size changes when data changes
+  // ref width , this divRef is use for nested table width
+  const { dimension, divRef } = useDivDimensions(["resize"]);
+
   const toggle = useCallback(() => {
     if (selectAll) {
       setSelectedRows([]);
@@ -175,7 +173,9 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
                 index={index}
                 item={item}
                 columns={columns}
-                expandableWidth={expandableWidth}
+                data={data}
+                expandingContent={expandingContent}
+                expandableWidth={dimension?.offsetWidth}
               />
             )}
           </React.Fragment>
@@ -186,7 +186,7 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   return (
     <div>
       <main className={`relative ${tableWrapperClass}`}>
-        <div ref={tableRef}>
+        <div ref={divRef}>
           <table
             className={twMerge(
               `m-0 p-0 table-auto relative border-spacing-0  border-separate  min-w-full `,

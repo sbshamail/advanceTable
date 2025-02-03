@@ -1,9 +1,9 @@
-'use client';
-import { useState, RefObject, useEffect } from 'react';
-import useClickOutside from './useClickOutside';
+"use client";
+import { useState, RefObject, useEffect } from "react";
+import useClickOutside from "./useClickOutside";
 
 export interface UsePopOverReturn {
-  divRef: RefObject<HTMLDivElement>;
+  divRef: RefObject<HTMLDivElement | null>;
   open: boolean;
   setOpen: (open: boolean) => void;
   dropdownPositionClass: string;
@@ -13,9 +13,9 @@ export interface UsePopOverReturn {
 
 export const usePopOver = (): UsePopOverReturn => {
   const [open, setOpen] = useState(false);
-  const [dropdownPositionClass, setDropdownPositionClass] = useState('');
+  const [dropdownPositionClass, setDropdownPositionClass] = useState("");
   const [dropdownLeftPositionClass, setDropdownLeftPositionClass] =
-    useState('');
+    useState("");
   const [shouldOpenUpwards, setShouldOpenUpwards] = useState(false);
   // const divRef <HTMLDivElement>(null);
   const togglePopOver = () => {
@@ -48,9 +48,9 @@ export const usePopOver = (): UsePopOverReturn => {
           const shouldOpenLeft = dropdownRect.left > viewportWidth / 2;
           setShouldOpenUpwards(shouldOpenUpwards);
           setDropdownPositionClass(
-            shouldOpenUpwards ? 'top-auto bottom-full' : ''
+            shouldOpenUpwards ? "top-auto bottom-full" : ""
           );
-          setDropdownLeftPositionClass(shouldOpenLeft ? 'right-0' : 'left-0');
+          setDropdownLeftPositionClass(shouldOpenLeft ? "right-0" : "left-0");
         }
       };
       // Update position on mount and when the dropdown opens
@@ -58,12 +58,12 @@ export const usePopOver = (): UsePopOverReturn => {
       updateDropdownPosition();
 
       // Optionally, add resize and scroll event listeners if the position needs to be updated dynamically
-      window.addEventListener('resize', updateDropdownPosition);
-      window.addEventListener('scroll', updateDropdownPosition);
+      window.addEventListener("resize", updateDropdownPosition);
+      window.addEventListener("scroll", updateDropdownPosition);
 
       return () => {
-        window.removeEventListener('resize', updateDropdownPosition);
-        window.removeEventListener('scroll', updateDropdownPosition);
+        window.removeEventListener("resize", updateDropdownPosition);
+        window.removeEventListener("scroll", updateDropdownPosition);
       };
     }
   }, [divRef, open]);

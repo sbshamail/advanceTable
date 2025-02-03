@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
 interface UseInViewOptions {
   threshold?: number | number[];
@@ -11,7 +11,7 @@ interface UseInViewOptions {
 const useIntersectionObserver = (
   options: UseInViewOptions = {}
 ): {
-  ref: React.RefObject<HTMLDivElement>;
+  ref: React.RefObject<HTMLDivElement | null>;
   inView: boolean;
   allProperties: any;
   InView: any;
@@ -23,14 +23,14 @@ const useIntersectionObserver = (
   useEffect(() => {
     const element = ref.current;
 
-    if (!element || typeof window.IntersectionObserver === 'undefined') {
+    if (!element || typeof window.IntersectionObserver === "undefined") {
       // Fallback if IntersectionObserver is not supported
       setInView(true); // Or false, depending on your default state
       return;
     }
     const observerOptions: IntersectionObserverInit = {
       root: options.root || null,
-      rootMargin: options.rootMargin || '0px',
+      rootMargin: options.rootMargin || "0px",
       threshold: options.threshold || 0,
     };
 

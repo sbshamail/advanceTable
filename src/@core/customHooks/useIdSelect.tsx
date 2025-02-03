@@ -1,4 +1,6 @@
-'use client';
+/* eslint-disable no-undef */
+
+"use client";
 import {
   useEffect,
   useState,
@@ -6,8 +8,8 @@ import {
   RefObject,
   KeyboardEvent,
   useCallback,
-} from 'react';
-import { usePopOver } from './usePopOver';
+} from "react";
+import { usePopOver } from "./usePopOver";
 
 interface Props {
   list: Array<{ [key: string]: any }>;
@@ -17,8 +19,8 @@ interface Props {
   setValue: (value: any) => void;
 }
 interface UseIdSelectReturn {
-  divRef: RefObject<HTMLDivElement>;
-  inputRef: RefObject<HTMLInputElement>;
+  divRef: RefObject<HTMLDivElement | null>;
+  inputRef: RefObject<HTMLInputElement | null>;
   open: boolean;
   setOpen: (open: boolean) => void;
   searchTerm: string;
@@ -39,13 +41,13 @@ export const useIdSelect = ({
   setValue,
 }: Props): UseIdSelectReturn => {
   const { divRef, open, setOpen, dropdownPositionClass } = usePopOver();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (open) {
-      inputRef.current?.focus();
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
   }, [open]);
 
@@ -53,7 +55,7 @@ export const useIdSelect = ({
     (event: MouseEvent) => {
       if (divRef.current && !divRef.current.contains(event.target as Node)) {
         if (list.some((item) => item[idName] !== searchTerm)) {
-          setSearchTerm('');
+          setSearchTerm("");
         }
         setOpen(false);
       }
@@ -62,9 +64,9 @@ export const useIdSelect = ({
   );
   useEffect(() => {
     if (typeof window !== undefined) {
-      window.addEventListener('mousedown', handleClickOutside);
+      window.addEventListener("mousedown", handleClickOutside);
       return () => {
-        window.removeEventListener('mousedown', handleClickOutside);
+        window.removeEventListener("mousedown", handleClickOutside);
       };
     }
   }, [handleClickOutside]);
@@ -78,27 +80,26 @@ export const useIdSelect = ({
   const selectedItem = list.find((item) => item[idField] === value);
 
   //show input value
-  const inputValue = selectedItem ? selectedItem[idName] : '';
-
+  const inputValue = selectedItem ? selectedItem[idName] : "";
   // keyboard event on down key
   const handleKeyDown = useCallback(
     (event: globalThis.KeyboardEvent) => {
-      if (event.key === 'ArrowDown') {
+      if (event.key === "ArrowDown") {
         setHighlightedIndex((prevIndex) =>
           prevIndex < filteredList.length - 1 ? prevIndex + 1 : 0
         );
-      } else if (event.key === 'ArrowUp') {
+      } else if (event.key === "ArrowUp") {
         setHighlightedIndex((prevIndex) =>
           prevIndex > 0 ? prevIndex - 1 : filteredList.length - 1
         );
-      } else if (event.key === 'Enter' && highlightedIndex !== -1) {
+      } else if (event.key === "Enter" && highlightedIndex !== -1) {
         event.preventDefault(); // Prevent default behavior of the Enter key
         setValue(filteredList[highlightedIndex][idField]);
-        setSearchTerm('');
+        setSearchTerm("");
         setOpen(false);
         setHighlightedIndex(-1);
         event.stopPropagation(); // Stop propagation of the event to prevent affecting other buttons or form submissions
-      } else if (event.key === 'Escape' || (event.key === 'Tab' && open)) {
+      } else if (event.key === "Escape" || (event.key === "Tab" && open)) {
         setOpen(false);
         setHighlightedIndex(-1);
       }
@@ -107,18 +108,16 @@ export const useIdSelect = ({
   );
 
   useEffect(() => {
-    if (typeof window !== undefined) {
-      if (open) {
-        window.addEventListener('keydown', handleKeyDown);
-        return () => {
-          window.removeEventListener('keydown', handleKeyDown);
-        };
-      }
+    if (open) {
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     }
   }, [open, handleKeyDown]);
 
   const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === ' ' && !open) {
+    if (event.key === " " && !open) {
       setOpen(true);
     }
   };

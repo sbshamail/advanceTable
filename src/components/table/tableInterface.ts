@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import React, { JSX } from "react";
 
 // export interface MenuListAction {
 //   selectedRows: Record<string, any>[];
@@ -47,5 +47,9 @@ export interface ActionStateTypes {
   multiSelected?: boolean;
   title: string;
 }
-
+export type ExpandingTableType = (props: {
+  data: Record<string, any>[];
+  row: Record<string, any>;
+  index: number;
+}) => React.ReactNode;
 export type ActionMenuListType = ({}) => ActionMenuList[];

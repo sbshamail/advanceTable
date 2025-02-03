@@ -1,9 +1,25 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "import"],
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript"
+  ],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off",          // Allows `any` type
-    "@typescript-eslint/no-empty-object-type": "off",     // Allows empty object types
-    "@typescript-eslint/no-unused-vars": "off",           // Allows unused variables
-    "@typescript-eslint/ban-ts-comment": "off"            // Disables the `@ts-ignore` and `@ts-expect-error` rule
+    "@typescript-eslint/no-explicit-any": "off",           // Show warnings when 'any' type is used
+    "@typescript-eslint/no-empty-object-type": "off",      // Warn on empty object types
+    "@typescript-eslint/no-unused-vars": "off",            // Warn on unused variables
+    "@typescript-eslint/ban-ts-comment": "off",            // Warn on `@ts-ignore` or `@ts-expect-error` usage
+    "@typescript-eslint/explicit-module-boundary-types": "off", // Enforce explicit return types for functions
+    "no-undef": "error",                                    // Show error for undefined variables
+    "no-implicit-globals": "error",                          // Prevent accidental global variables
+    "no-constant-condition": "error",                        // Avoid constant conditions
+    "import/no-unresolved": "error",                         // Error when module import is unresolved
+    "import/named": "off"                                  // Ensure named imports match with module exports
   }
 }

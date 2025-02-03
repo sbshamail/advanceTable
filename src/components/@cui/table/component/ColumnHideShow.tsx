@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
 import IconDropdown from "../../dropDown/IconDropdown";
 import { ColumnType, ColumnKey } from "@/components/table/tableInterface";
@@ -70,19 +70,23 @@ const ColumnHideShow: FC<Props> = ({
         <DragDropArray
           setItems={setShowOnlyColumns}
           items={showOnlyColumns}
-          renderItem={(column) =>
-            ContentDiv({
-              column,
-              className: "bg-effect-2xl hover:bg-yellow-600",
-            })
-          }
+          renderItem={(column, index) => (
+            <span key={index}>
+              {ContentDiv({
+                column,
+                className: "bg-effect-2xl hover:bg-yellow-600",
+              })}
+            </span>
+          )}
         />
         {allColumns
           .filter(
             (item) =>
               !showOnlyColumns?.some((column) => column.title === item.title)
           )
-          ?.map((item, index) => ContentDiv({ column: item }))}
+          ?.map((item, index) => (
+            <span key={index}>{ContentDiv({ column: item })}</span>
+          ))}
       </IconDropdown>
     </div>
   );

@@ -14,9 +14,7 @@ export interface dimensionProps {
 }
 type EventType = "resize" | "scroll";
 const useDivDimensions = (events?: EventType[]) => {
-  const [dimension, setDimension] = useState<DOMRect | dimensionProps | null>(
-    null
-  );
+  const [dimension, setDimension] = useState<dimensionProps | null>(null);
   const divRef = useRef<HTMLDivElement>(null);
 
   const updateDimensions = useCallback(() => {

@@ -14,17 +14,21 @@ interface TableProps extends TableMainBodyTypes {
   header: HeaderType;
 }
 const Table: FC<TableProps> = ({
-  data,
   total,
   columns,
-  rowId,
-  selectedRows,
-  setSelectedRows,
-  tableClasses,
   layoutClass = "p-4 py-10 shadow-2xl shadow-border border border-border rounded-[20px] space-y-2",
   header,
   pagination,
   showPagination = false,
+  //tableMain
+  data,
+  rowId,
+  selectedRows,
+  setSelectedRows,
+  tableClasses,
+  expandable,
+  multiExpandable,
+  expandingContent,
 }) => {
   const tableMain = () => (
     <TableMainBody
@@ -34,6 +38,9 @@ const Table: FC<TableProps> = ({
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
       tableClasses={tableClasses}
+      expandable={expandable}
+      multiExpandable={multiExpandable}
+      expandingContent={expandingContent}
     />
   );
 

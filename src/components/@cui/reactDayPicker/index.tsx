@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ChevronProps, DayPicker } from "react-day-picker";
+import React from "react";
+import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import Iconify from "@/@core/common/icon";
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
