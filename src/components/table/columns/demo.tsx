@@ -128,7 +128,4 @@ export const demoColumns: ColumnType[] = [
   { title: "Name", accessor: "name", filterId: "name" },
   { title: "Age", accessor: "age", filterId: "age" },
   { title: "Email", accessor: "email", filterId: "email" },
-  { title: "Email1", accessor: "email", filterId: "email" },
-  { title: "Email2", accessor: "email", filterId: "email" },
-  { title: "Email3", accessor: "email", filterId: "email" },
 ];

@@ -1,6 +1,8 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
-import Table from "../@cui/table";
+// import Table from "../@cui/table";
+// import { Table } from "../../../nextMastery/src"
+import { Table } from "nextmastery";
 import {
   ActionMenuListType,
   ColumnFilterType,

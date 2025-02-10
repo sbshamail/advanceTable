@@ -21,5 +21,16 @@
     "no-constant-condition": "error",                        // Avoid constant conditions
     "import/no-unresolved": "error",                         // Error when module import is unresolved
     "import/named": "off"                                  // Ensure named imports match with module exports
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["nextmastery", "./nextMastery/src"]
+        ],
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
+      }
+    }
   }
+  
 }
