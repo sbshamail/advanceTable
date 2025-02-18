@@ -3,6 +3,7 @@ import { JSX, useState } from "react";
 import { ActionMenuList, NewActionMenu } from "../tableInterface";
 import SimpleModal from "@/components/@cui/modals/SimpleModel";
 import Iconify from "@/@core/common/icon";
+
 export const demoActionMenuList = ({}: Record<
   string,
   any
@@ -10,7 +11,7 @@ export const demoActionMenuList = ({}: Record<
   {
     title: "Edit",
     icon: "tabler:edit",
-    Component: <></>,
+    Component: <p>This is Edit Content</p>,
     visible: "selected",
   },
   {

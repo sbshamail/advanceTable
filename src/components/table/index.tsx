@@ -1,15 +1,17 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
-// import Table from "../@cui/table";
-// import { Table } from "../../../nextMastery/src"
+import { FC, useEffect, useState } from "react";
+
 import { Table } from "nextmastery";
+// import Table from "../../../nextMastery/dist/components/@cui/table";
 import {
   ActionMenuListType,
   ColumnFilterType,
   ColumnType,
   ExpandingTableType,
-} from "./tableInterface";
-import TableHeaderAction from "./action/HeaderAction";
+} from "nextmastery/props";
+
+import TableHeaderAction from "nextmastery/components/@cui/table/headerAction/index";
+
 interface Props {
   data: Record<string, any>[];
   columns: ColumnType[];
