@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "push": "git add . && git commit -m \"$(date +'%d-%m-%y %I:%M %p')\" && git push"
   },
   "dependencies": {
@@ -29,11 +29,18 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "eslint": "^9.20.1",
+    "eslint-config-next": "^15.0.4",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "postcss": "^8",
+    "prettier": "^3.5.1",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^8.24.1"
   }
 }

@@ -1,30 +1,29 @@
-"use client";
-import { JSX, useState } from "react";
-import { ActionMenuList, NewActionMenu } from "../tableInterface";
-import SimpleModal from "@/components/@cui/modals/SimpleModel";
-import Iconify from "@/@core/common/icon";
+'use client';
+import { JSX, useState } from 'react';
+import { ActionMenuList, NewActionMenu } from '../tableInterface';
+import { Iconify, SimpleModal } from 'nextmastery';
 
 export const demoActionMenuList = ({}: Record<
   string,
   any
 >): ActionMenuList[] => [
   {
-    title: "Edit",
-    icon: "tabler:edit",
+    title: 'Edit',
+    icon: 'tabler:edit',
     Component: <p>This is Edit Content</p>,
-    visible: "selected",
+    visible: 'selected',
   },
   {
-    title: "Create",
-    icon: "tabler:plus",
+    title: 'Create',
+    icon: 'tabler:plus',
     Component: <></>,
-    visible: "unselected",
+    visible: 'unselected',
   },
   {
-    title: "Delete",
-    icon: "tabler:minus",
+    title: 'Delete',
+    icon: 'tabler:minus',
     deleted: true,
-    visible: "selected",
+    visible: 'selected',
     multiSelected: true,
   },
 ];
@@ -47,18 +46,18 @@ export const demoNewActionMenu = ({}: Record<string, any>): NewActionMenu[] => [
   {
     dropdownMenu: [
       {
-        icon: "lets-icons:import-duotone-line",
+        icon: 'lets-icons:import-duotone-line',
         contents: ({}: Record<string, any>) => [
           {
-            title: "Export All",
-            icon: "solar:file-download-bold",
+            title: 'Export All',
+            icon: 'solar:file-download-bold',
             Component: <></>,
           },
           {
-            title: " Export Selected",
-            icon: "solar:file-download-bold",
+            title: ' Export Selected',
+            icon: 'solar:file-download-bold',
             Component: <></>,
-            visible: "selected",
+            visible: 'selected',
             multiSelected: true,
           },
         ],
@@ -66,7 +65,7 @@ export const demoNewActionMenu = ({}: Record<string, any>): NewActionMenu[] => [
     ],
   },
   {
-    icon: "solar:file-download-bold",
+    icon: 'solar:file-download-bold',
     action: StatusModal,
   },
 ];

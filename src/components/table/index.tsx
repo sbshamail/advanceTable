@@ -1,16 +1,16 @@
-"use client";
-import { FC, useEffect, useState } from "react";
+'use client';
+import { FC, useEffect, useState } from 'react';
 
-import { Table } from "nextmastery";
+import { Table } from 'nextmastery';
 // import Table from "../../../nextMastery/dist/components/@cui/table";
 import {
   ActionMenuListType,
   ColumnFilterType,
   ColumnType,
   ExpandingTableType,
-} from "nextmastery/props";
+} from 'nextmastery/props';
 
-import TableHeaderAction from "nextmastery/components/@cui/table/headerAction/index";
+import TableHeaderAction from 'nextmastery/components/@cui/table/headerAction';
 
 interface Props {
   data: Record<string, any>[];
@@ -20,8 +20,8 @@ interface Props {
   multiExpandable?: boolean;
   expandingContent?: ExpandingTableType;
 }
-import { demoNewActionMenu } from "./headerActionList/demo";
-import { TableClassesType } from "../@cui/table/main/TableMainBody";
+import { demoNewActionMenu } from './headerActionList/demo';
+import { TableMainClassesType } from 'nextmastery/props';
 const MyTable: FC<Props> = ({
   data,
   columns,
@@ -33,7 +33,7 @@ const MyTable: FC<Props> = ({
   const [paginationData, setPaginationData] = useState(data);
   //selectedRows
   const [selectedRows, setSelectedRows] = useState<Record<string, any>[] | []>(
-    []
+    [],
   );
   // column Hide Show
   const [showOnlyColumns, setShowOnlyColumns] = useState(columns);
@@ -42,7 +42,7 @@ const MyTable: FC<Props> = ({
   const [columnFilterField, setColumnFilterFields] = useState<ColumnType[]>([]);
   const [fromDate, setFromDate] = useState<Date | undefined>();
   const [toDate, setToDate] = useState<Date | undefined>(new Date());
-  const [globalFilter, setGlobalFilter] = useState<string>("");
+  const [globalFilter, setGlobalFilter] = useState<string>('');
   const [columnFilter, setColumnFilter] = useState<ColumnFilterType[]>([]);
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,7 +53,7 @@ const MyTable: FC<Props> = ({
     const paginateData = (
       data: any[],
       currentPage: number,
-      dataLimit: number
+      dataLimit: number,
     ) => {
       const skip = (currentPage - 1) * dataLimit;
       return data.slice(skip, skip + dataLimit);
@@ -74,19 +74,19 @@ const MyTable: FC<Props> = ({
       />
     );
   };
-  const tableClasses: TableClassesType = {
-    tableWrapperClass: "!max-h-[calc(100vh-350px)] overflow-y-auto",
-    tableClass: "",
+  const tableClasses: TableMainClassesType = {
+    tableWrapperClass: '!max-h-[calc(100vh-350px)] overflow-y-auto',
+    tableClass: '',
     tableInsideClass:
-      "border border-border shadow-sm shadow-effect-lg text-left px-2 ",
-    tHeadClass: "",
-    trHeadClass: "bg-accent",
-    thHeadClass: "",
-    tBodyClass: "",
-    trBodyClass: "hover:bg-effect-md hover:text-primary-foreground",
-    tdBodyClass: "",
+      'border border-border shadow-sm shadow-effect-lg text-left px-2 ',
+    tHeadClass: '',
+    trHeadClass: 'bg-accent',
+    thHeadClass: '',
+    tBodyClass: '',
+    trBodyClass: 'hover:bg-effect-md hover:text-primary-foreground',
+    tdBodyClass: '',
     striped: true,
-    stripedClass: "bg-accent ",
+    stripedClass: 'bg-accent ',
   };
   return (
     <Table
