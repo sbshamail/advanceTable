@@ -30,6 +30,8 @@ const MyTable: FC<Props> = ({
   multiExpandable,
   expandingContent,
 }) => {
+  //table fullscreen state
+  const [fullScreen, setFullScreen] = useState(false);
   const [paginationData, setPaginationData] = useState(data);
   //selectedRows
   const [selectedRows, setSelectedRows] = useState<Record<string, any>[] | []>(
@@ -122,6 +124,10 @@ const MyTable: FC<Props> = ({
           //these are field that show
           columnFilterField,
           setColumnFilterFields,
+        },
+        showFullScreen: {
+          setFullScreen,
+          fullScreen,
         },
         showOnlyColumns,
         setShowOnlyColumns,

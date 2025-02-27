@@ -4,9 +4,9 @@
 
 :root {
   --selection: 100; /*//z-index*/
-  --popOver: 110;
   --navbar: 110;
   --sidebar: 111;
+  --popOver: 112;
   --drawer: 120;
   --modal: 120;
   --radius: 0.5rem;
@@ -32,7 +32,6 @@
   --ring: 20.5, 90.2%, 48.2%;
   --effect: 20.5, 90.2%, 48.2%, 0.1;
 }
-
 
 /* // html,
 // body,
@@ -74,7 +73,7 @@
 }
 @layer base {
   body {
-    @apply  m-0 p-0 prose prose-headings:text-foreground prose-headings:m-0 prose-headings:p-0;
+    @apply m-0 p-0 prose prose-headings:text-foreground prose-headings:m-0 prose-headings:p-0;
     @apply h-full w-full bg-background text-foreground;
 
     /* @apply bg-gradient-to-r from-background via-effect-sm via-50% to-background; */
@@ -163,10 +162,6 @@ pre {
 .input-textfield {
   -moz-appearance: textfield;
 }
-
-
-
-
 
 #app {
   width: 100%;
