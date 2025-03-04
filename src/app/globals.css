@@ -71,6 +71,7 @@
 ::-webkit-scrollbar-thumb:active {
   background-color: hsl(var(--primary));
 }
+
 @layer base {
   body {
     @apply m-0 p-0 prose prose-headings:text-foreground prose-headings:m-0 prose-headings:p-0;

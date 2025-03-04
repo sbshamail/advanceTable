@@ -6,7 +6,7 @@ import { demoActionMenuList } from '@/components/table/headerActionList/demo';
 import Topbar from '@/components/topbar';
 const page = () => {
   const ExpandingTable = ({ row, index, data }: any) => {
-    return <div>sasasdasd</div>;
+    return <div>{JSON.stringify(row)}</div>;
   };
   return (
     <div className="m-20">

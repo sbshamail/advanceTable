@@ -77,7 +77,9 @@ const MyTable: FC<Props> = ({
     );
   };
   const tableClasses: TableMainClassesType = {
-    tableWrapperClass: '!max-h-[calc(100vh-350px)] overflow-y-auto',
+    tableWrapperClass: !fullScreen
+      ? '!max-h-[calc(100vh-350px)] overflow-y-auto'
+      : '',
     tableClass: '',
     tableInsideClass:
       'border border-border shadow-sm shadow-effect-lg text-left px-2 ',
