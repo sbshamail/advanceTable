@@ -3,33 +3,25 @@ import { FC, useEffect, useState } from 'react';
 
 import { Table } from 'nextmastery';
 // import Table from "../../../nextMastery/dist/components/@cui/table";
-import {
-  ActionMenuListType,
-  ColumnFilterType,
-  ColumnType,
-  ExpandingTableType,
-} from 'nextmastery/props';
+import { ColumnFilterType, ColumnType, TableType } from 'nextmastery/props';
 
 import TableHeaderAction from 'nextmastery/components/@cui/table/headerAction';
 
-interface Props {
-  data: Record<string, any>[];
-  columns: ColumnType[];
-  actionMenuList: ActionMenuListType; // function to generate action menu items based on row data.
-  expandable?: boolean;
-  multiExpandable?: boolean;
-  expandingContent?: ExpandingTableType;
-}
-import { demoNewActionMenu } from './headerActionList/demo';
+interface Props extends TableType {}
+
 import { TableMainClassesType } from 'nextmastery/props';
 const MyTable: FC<Props> = ({
+  titleTable,
   data,
   columns,
   actionMenuList,
+  newActionMenu,
   expandable,
   multiExpandable,
   expandingContent,
+  tabs,
 }) => {
+  // **start STATES
   //table fullscreen state
   const [fullScreen, setFullScreen] = useState(false);
   const [paginationData, setPaginationData] = useState(data);
@@ -49,8 +41,25 @@ const MyTable: FC<Props> = ({
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [dataLimit, setDataLimit] = useState(20);
+  //active tab
+  const [activeTab, setActiveTab] = useState(0);
+  // **end STATES
   const total = data.length;
 
+  // If tabs exist, use the selected tab's data
+  if (tabs && tabs.length > 0) {
+    const activeTabData = tabs[activeTab];
+    titleTable = activeTabData.titleTable;
+    data = activeTabData.data;
+    columns = activeTabData.columns;
+    actionMenuList = activeTabData.actionMenuList;
+    newActionMenu = activeTabData.newActionMenu;
+    expandable = activeTabData.expandable;
+    multiExpandable = activeTabData.multiExpandable;
+    expandingContent = activeTabData.expandingContent;
+  }
+
+  // handle rendering table on action
   useEffect(() => {
     const paginateData = (
       data: any[],
@@ -66,16 +75,18 @@ const MyTable: FC<Props> = ({
   }, [currentPage, dataLimit]);
   //<-pagination
 
+  // header action left side
   const headerAction = () => {
     return (
       <TableHeaderAction
-        actionMenuList={actionMenuList}
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
-        newActionMenu={demoNewActionMenu}
+        actionMenuList={actionMenuList}
+        newActionMenu={newActionMenu}
       />
     );
   };
+
   const tableClasses: TableMainClassesType = {
     tableWrapperClass: !fullScreen
       ? '!max-h-[calc(100vh-350px)] overflow-y-auto'
@@ -87,10 +98,10 @@ const MyTable: FC<Props> = ({
     trHeadClass: 'bg-accent',
     thHeadClass: '',
     tBodyClass: '',
-    trBodyClass: 'hover:bg-effect-md hover:text-primary-foreground',
+    trBodyClass: '',
     tdBodyClass: '',
     striped: true,
-    stripedClass: 'bg-accent ',
+    stripedClass: '',
   };
   return (
     <Table
@@ -104,6 +115,12 @@ const MyTable: FC<Props> = ({
       expandable={expandable}
       multiExpandable={multiExpandable}
       expandingContent={expandingContent}
+      //tab
+      tab={{
+        activeTab,
+        setActiveTab,
+        tabs,
+      }}
       //header
       header={{
         headerAction,

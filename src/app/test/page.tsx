@@ -1,5 +1,4 @@
-import React from "react";
-import { MyTable } from "nextmastery";
+import React from 'react';
 const page = () => {
   return <div>page</div>;
 };

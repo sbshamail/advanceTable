@@ -2,6 +2,7 @@
 import { JSX, useState } from 'react';
 import { ActionMenuList, NewActionMenu } from '../tableInterface';
 import { Iconify, SimpleModal } from 'nextmastery';
+import { TableType } from 'nextmastery/props';
 
 export const demoActionMenuList = ({}: Record<
   string,
