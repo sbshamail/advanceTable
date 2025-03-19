@@ -1,4 +1,5 @@
-import { TableType } from 'nextmastery/props';
+'use client';
+import { TableTabsType } from 'nextmastery/props';
 import { ColumnType } from '../tableInterface';
 
 export const demoData = [
@@ -124,6 +125,39 @@ export const demoData = [
   { id: 40, name: 'Sophie Lee', age: 24, email: 'sophie.lee@example.com' },
 ];
 
+export const demoData2 = [
+  { id: 1, name: 'John Doe 2', age: 30, email: 'john.doe@example2.com' },
+  { id: 2, name: 'Jane Smith 2', age: 25, email: 'jane.smith@example2.com' },
+  {
+    id: 3,
+    name: 'Michael Johnson 2',
+    age: 32,
+    email: 'michael.johnson@example.com2',
+  },
+  { id: 4, name: 'Emily Davis 2', age: 28, email: 'emily.davis@example.com2' },
+  {
+    id: 5,
+    name: 'Sarah Wilson 2',
+    age: 35,
+    email: 'sarah.wilson@example.com2',
+  },
+  { id: 6, name: 'David Brown 2', age: 40, email: 'david.brown@example.com2' },
+  {
+    id: 7,
+    name: 'Chris Miller 2',
+    age: 29,
+    email: 'chris.miller@example.com2',
+  },
+  { id: 8, name: 'Daniel Lee 2', age: 24, email: 'daniel.lee@example.com2' },
+  { id: 9, name: 'Anna White 2', age: 33, email: 'anna.white@example.com2' },
+  {
+    id: 10,
+    name: 'Sophia Taylor2',
+    age: 27,
+    email: 'sophia.taylor@example2.com',
+  },
+];
+
 export const demoColumns: ColumnType[] = [
   { title: 'ID', accessor: 'id', filterId: 'id' },
   { title: 'Name', accessor: 'name', filterId: 'name' },
@@ -141,24 +175,35 @@ export const demoColumns: ColumnType[] = [
   { title: 'Email', accessor: 'email', filterId: 'email' },
 ];
 
-const ExpandingTable = ({ row, index, data }: any) => {
-  return <div>{JSON.stringify(row)}</div>;
+export const demoColumns2: ColumnType[] = [
+  { title: 'ID', accessor: 'id', filterId: 'id' },
+  { title: 'Name', accessor: 'name', filterId: 'name' },
+  { title: 'Age', accessor: 'age', filterId: 'age' },
+  { title: 'Email', accessor: 'email', filterId: 'email' },
+];
+
+const ExpandingTable = (props: any) => {
+  return <div>{JSON.stringify(props?.row)}</div>;
 };
-export const tabs: TableType[] = [
+export const tabs: TableTabsType[] = [
   {
     titleTable: 'Demo Table',
     columns: demoColumns,
     data: demoData,
+    total: demoData.length,
     expandable: true,
-    multiExpandable: true,
-    expandingContent: ExpandingTable,
+    // multiExpandable: true,
+    ExpandingContent: ExpandingTable,
+    rowId: 'id',
   },
   {
     titleTable: 'Demo Table 2',
     columns: demoColumns,
-    data: demoData,
+    data: demoData2,
+    total: demoData.length,
     expandable: true,
     multiExpandable: true,
-    expandingContent: ExpandingTable,
+    ExpandingContent: ExpandingTable,
+    rowId: 'id',
   },
 ];

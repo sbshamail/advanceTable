@@ -7,24 +7,31 @@ import {
   demoNewActionMenu,
 } from '@/components/table/headerActionList/demo';
 import Topbar from '@/components/topbar';
+import TabTable from '@/components/table/TabTable';
 
 const page = () => {
-  const ExpandingTable = ({ row, index, data }: any) => {
-    return <div>{JSON.stringify(row)}</div>;
+  const ExpandingTable = (props: any) => {
+    return <div>{JSON.stringify(props?.row)}</div>;
   };
   return (
-    <div className="m-20">
+    <div className="">
       <Topbar />
-      <MyTable
-        data={demoData}
-        columns={demoColumns}
-        // actionMenuList={demoActionMenuList}
-        // newActionMenu={demoNewActionMenu}
-        tabs={tabs}
-        expandable={true}
-        multiExpandable={true}
-        expandingContent={ExpandingTable}
-      />
+
+      <div className=" flex flex-col gap-10">
+        <MyTable
+          data={demoData}
+          columns={demoColumns}
+          actionMenuList={demoActionMenuList}
+          newActionMenu={demoNewActionMenu}
+          expandable={true}
+          multiExpandable={true}
+          ExpandingContent={ExpandingTable}
+          total={demoData.length}
+          rowId={'id'}
+          titleTable="Demo Table"
+        />
+        <TabTable tabs={tabs} />
+      </div>
     </div>
   );
 };

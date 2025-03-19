@@ -1,9 +1,10 @@
+import React from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import React from 'react';
-// import ThemeProvider from 'nextmastery/@core/theme/themeContext';
 import { MasteryProvider, ThemeProvider } from 'nextmastery';
+import Layout from '@/components/layout';
+
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -31,7 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MasteryProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <Layout>{children}</Layout>
+          </ThemeProvider>
         </MasteryProvider>
       </body>
     </html>

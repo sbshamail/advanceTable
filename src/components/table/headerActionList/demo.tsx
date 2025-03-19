@@ -44,27 +44,27 @@ const StatusModal = ({ icon }: any): JSX.Element => {
 };
 
 export const demoNewActionMenu = ({}: Record<string, any>): NewActionMenu[] => [
-  {
-    dropdownMenu: [
-      {
-        icon: 'lets-icons:import-duotone-line',
-        contents: ({}: Record<string, any>) => [
-          {
-            title: 'Export All',
-            icon: 'solar:file-download-bold',
-            Component: <></>,
-          },
-          {
-            title: ' Export Selected',
-            icon: 'solar:file-download-bold',
-            Component: <></>,
-            visible: 'selected',
-            multiSelected: true,
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   dropdownMenu: [
+  //     {
+  //       icon: 'lets-icons:import-duotone-line',
+  //       contents: ({}: Record<string, any>) => [
+  //         {
+  //           title: 'Export All',
+  //           icon: 'solar:file-download-bold',
+  //           Component: <></>,
+  //         },
+  //         {
+  //           title: ' Export Selected',
+  //           icon: 'solar:file-download-bold',
+  //           Component: <></>,
+  //           visible: 'selected',
+  //           multiSelected: true,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     icon: 'solar:file-download-bold',
     action: StatusModal,

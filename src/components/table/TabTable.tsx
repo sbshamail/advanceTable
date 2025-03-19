@@ -1,27 +1,41 @@
 'use client';
 import { FC, useEffect, useState } from 'react';
 
-import { Table } from 'nextmastery';
+import { Table, useTableTabs } from 'nextmastery';
 // import Table from "../../../nextMastery/dist/components/@cui/table";
-import { ColumnFilterType, TableType } from 'nextmastery/props';
+import { ColumnFilterType, TableTabsType } from 'nextmastery/props';
 
 import TableHeaderAction from 'nextmastery/components/@cui/table/headerAction';
 
-interface Props extends TableType {}
+interface Props {
+  tabs?: TableTabsType[];
+}
 
 import { TableMainClassesType } from 'nextmastery/props';
-const MyTable: FC<Props> = ({
-  data,
-  columns,
-  actionMenuList,
-  newActionMenu,
-  total,
-  rowId,
-  expandable,
-  multiExpandable,
-  ExpandingContent,
-  titleTable,
+const TabTable: FC<Props> = ({
+  tabs = [
+    {
+      data: [],
+      columns: [],
+    },
+  ],
 }) => {
+  const [activeTab, setActiveTab] = useState(0);
+  //hooks tabs
+  const {
+    data,
+    columns,
+    rowId,
+    actionMenuList,
+    newActionMenu,
+    total,
+    expandable,
+    multiExpandable,
+    ExpandingContent,
+  } = useTableTabs({
+    tabs,
+    activeTab,
+  });
   // **start STATES
   const [paginationData, setPaginationData] = useState(data);
   // console.log(ExpandingContent);
@@ -82,7 +96,9 @@ const MyTable: FC<Props> = ({
       data={paginationData}
       columns={columns}
       rowId={rowId}
-      titleTable={titleTable}
+      tabs={tabs}
+      activeTab={activeTab}
+      setActiveTab={setActiveTab}
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
       expandable={expandable}
@@ -128,4 +144,4 @@ const MyTable: FC<Props> = ({
   );
 };
 
-export default MyTable;
+export default TabTable;

@@ -96,7 +96,7 @@
     @apply bg-transparent !outline-none ps-2;
   }
   .checkbox {
-    @apply appearance-none w-[1em] h-[1em] rounded border-2 border-muted-foreground/50  focus:border-muted-foreground/50  active:border-muted-foreground/50 hover:!border-effect-2xl;
+    @apply appearance-none w-[1em] h-[1em] rounded border-2 border-muted-foreground/50  focus:border-muted-foreground/50  active:border-muted-foreground/50 hover:border-ring;
   }
 
   .checkbox:checked {
