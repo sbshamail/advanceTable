@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import React, { JSX } from 'react';
 
 // export interface MenuListAction {
 //   selectedRows: Record<string, any>[];
@@ -7,9 +7,9 @@ export interface ActionMenuList {
   title: string;
   icon: string;
   Component?: JSX.Element;
-  visible?: "selected" | "unselected";
+  visible?: 'selected' | 'unselected';
   multiSelected?: boolean;
-  deleted?: boolean;
+  deleted?: (props: Record<string, any>) => void | JSX.Element;
   action?: (props: Record<string, any>) => JSX.Element;
 }
 export interface RenderType {
@@ -22,13 +22,13 @@ export interface ColumnType {
   title: string;
   accessor: string;
   filterId?: string;
-  type?: "date" | "currency";
-  currency?: "PKR" | "SAR" | "EUR" | "JPY" | "USD" | "INR";
-  format?: "en-PK" | "en-US" | "de-DE" | "ja-JP" | "en-IN";
+  type?: 'date' | 'currency';
+  currency?: 'PKR' | 'SAR' | 'EUR' | 'JPY' | 'USD' | 'INR';
+  format?: 'en-PK' | 'en-US' | 'de-DE' | 'ja-JP' | 'en-IN';
   render?: ({ row, index, data, cell }: RenderType) => void;
-  className?: React.ComponentProps<"div">["className"];
+  className?: React.ComponentProps<'div'>['className'];
 }
-export type ColumnKey = "title" | "accessor" | "filterId";
+export type ColumnKey = 'title' | 'accessor' | 'filterId';
 export interface ColumnFilterType {
   id: string;
   value: string;

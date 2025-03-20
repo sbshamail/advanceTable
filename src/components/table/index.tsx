@@ -48,7 +48,7 @@ const MyTable: FC<Props> = ({
   // handle rendering table on action
   useEffect(() => {
     const paginateData = (
-      data: any[],
+      data: Record<string, unknown>[],
       currentPage: number,
       dataLimit: number,
     ) => {
@@ -61,14 +61,20 @@ const MyTable: FC<Props> = ({
   }, [currentPage, dataLimit]);
   //<-pagination
 
+  const removeSelection = () => {
+    setSelectedRows([]);
+  };
+
   // header action left side
   const headerAction = () => {
     return (
       <TableHeaderAction
+        data={data}
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
         actionMenuList={actionMenuList}
         newActionMenu={newActionMenu}
+        removeSelection={removeSelection}
       />
     );
   };

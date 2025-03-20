@@ -1,6 +1,6 @@
 'use client';
 import { JSX, useState } from 'react';
-import { ActionMenuList, NewActionMenu } from '../tableInterface';
+import { ActionMenuList, NewActionMenu } from 'nextmastery/props';
 import { Iconify, SimpleModal } from 'nextmastery';
 import { TableType } from 'nextmastery/props';
 
@@ -11,19 +11,19 @@ export const demoActionMenuList = ({}: Record<
   {
     title: 'Edit',
     icon: 'tabler:edit',
-    Component: <p>This is Edit Content</p>,
+    Component: ({}) => <p className="text-center">This is Edit Content</p>,
     visible: 'selected',
   },
   {
     title: 'Create',
     icon: 'tabler:plus',
-    Component: <></>,
+    Component: <p className="text-center">This is Create Content</p>,
     visible: 'unselected',
   },
   {
     title: 'Delete',
     icon: 'tabler:minus',
-    deleted: true,
+    deleted: ({}) => {},
     visible: 'selected',
     multiSelected: true,
   },
