@@ -1,6 +1,5 @@
 'use client';
 import { FC, useEffect, useState } from 'react';
-
 import { Table } from 'nextmastery';
 // import Table from "../../../nextMastery/dist/components/@cui/table";
 import { ColumnFilterType, TableType } from 'nextmastery/props';

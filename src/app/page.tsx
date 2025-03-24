@@ -6,7 +6,6 @@ import {
   demoActionMenuList,
   demoNewActionMenu,
 } from '@/components/table/headerActionList/demo';
-import Topbar from '@/components/topbar';
 import TabTable from '@/components/table/TabTable';
 
 const page = () => {
@@ -15,8 +14,6 @@ const page = () => {
   };
   return (
     <div className="">
-      <Topbar />
-
       <div className=" flex flex-col gap-10">
         <MyTable
           data={demoData}
