@@ -69,6 +69,7 @@ const MyTable: FC<Props> = ({
     return (
       <TableHeaderAction
         data={data}
+        columns={columns}
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
         actionMenuList={actionMenuList}
