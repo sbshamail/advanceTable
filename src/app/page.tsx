@@ -7,7 +7,7 @@ import {
   demoNewActionMenu,
 } from '@/components/table/headerActionList/demo';
 import TabTable from '@/components/table/TabTable';
-
+import SelectDropdown from '@/components/select/SelectDropdown';
 const page = () => {
   const ExpandingTable = (props: any) => {
     return <div>{JSON.stringify(props?.row)}</div>;
@@ -28,6 +28,8 @@ const page = () => {
           titleTable="Demo Table"
         />
         <TabTable tabs={tabs} />
+
+        <SelectDropdown />
       </div>
     </div>
   );
