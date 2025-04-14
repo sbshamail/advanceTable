@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import './tooltip.css';
 import { MasteryProvider, ThemeProvider } from 'nextmastery';
 import Layout from '@/components/layout';
 

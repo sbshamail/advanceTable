@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import MyTable from '@/components/table';
 import { demoData, demoColumns, tabs } from '@/components/table/columns/demo';
 import {
@@ -8,10 +8,11 @@ import {
 } from '@/components/table/headerActionList/demo';
 import TabTable from '@/components/table/TabTable';
 import SelectDropdown from '@/components/select/SelectDropdown';
-const page = () => {
+const Page = () => {
   const ExpandingTable = (props: any) => {
     return <div>{JSON.stringify(props?.row)}</div>;
   };
+  const [value, setValue] = useState();
   return (
     <div className="">
       <div className=" flex flex-col gap-10">
@@ -29,10 +30,10 @@ const page = () => {
         />
         <TabTable tabs={tabs} />
 
-        <SelectDropdown />
+        <SelectDropdown value={value} setValue={setValue} label="Label" />
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
